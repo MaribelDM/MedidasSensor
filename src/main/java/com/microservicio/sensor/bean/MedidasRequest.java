@@ -10,14 +10,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AlmacenTemperaturaRequest {
+public class MedidasRequest {
 
-	@Schema(name = "valor", description = "Valor tomado por el sensor de temperatura", example = "32.4")
+	@Schema(name = "valor", description = "Valor tomado por el sensor de humedad", example = "32.4")
 	private float valor;
-
-	@Schema(name = "usuario", description = "Usuario del que pertene el sensor", example = "pepito")
-	private String usuario;
 
 	@Schema(name = "fecha", description = "Fecha en la que se realizó la medición", example = "2020-10-22 11:22:11")
 	private String fecha;
+
+	@Schema(name = "idSensor", description = "Identificador sensor ", example = "2")
+	private String idSensor;
 }

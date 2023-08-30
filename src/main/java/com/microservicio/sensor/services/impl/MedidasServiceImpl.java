@@ -8,8 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.microservicio.sensor.bean.AlmacenHumedadRequest;
-import com.microservicio.sensor.bean.AlmacenTemperaturaRequest;
+import com.microservicio.sensor.bean.MedidasRequest;
 import com.microservicio.sensor.entities.Humedad;
 import com.microservicio.sensor.entities.Temperatura;
 import com.microservicio.sensor.repository.MedidasHumedadRepository;
@@ -29,17 +28,15 @@ public class MedidasServiceImpl implements MedidasService {
 	private MedidasTemperaturaRepository medidasTemp;
 
 	@Override
-	public String almacenarHumedades(AlmacenHumedadRequest request) {
+	public String almacenarHumedades(MedidasRequest request) {
 		logger.debug("Introducimos humedad valor:{}, fecha:{} ", request.getValor(), request.getFecha());
 		String ok  = "ok";
 		int tamanio = (int) medidasHumedad.count();
 		try {
-		List<Humedad> humedades = medidasHumedad.findAllByOrderByFecha();
-		
 		Humedad humedad = new Humedad();
 		humedad.setFecha(MedidasUtils.formatearFecha(request.getFecha()));
 		humedad.setValor(request.getValor());
-		humedad.setId(humedades.get(tamanio-1).getId()+1);
+		humedad.setIdSensor(Integer.valueOf(request.getIdSensor()));
 		
 		medidasHumedad.save(humedad);
 		
@@ -51,17 +48,15 @@ public class MedidasServiceImpl implements MedidasService {
 	}
 
 	@Override
-	public String almacenarTemperaturas(AlmacenTemperaturaRequest request) {
+	public String almacenarTemperaturas(MedidasRequest request) {
 		logger.debug("Introducimos temperatura valor:{}, fecha:{} ", request.getValor(), request.getFecha());
 		String ok  = "ok";
 		int tamanio = (int) medidasTemp.count();
 		try {
-		List<Temperatura> humedades = medidasTemp.findAllByOrderByFecha();
-		
 		Temperatura temp = new Temperatura();
 		temp.setFecha(MedidasUtils.formatearFecha(request.getFecha()));
 		temp.setValor(request.getValor());
-		temp.setId(humedades.get(tamanio-1).getId()+1);
+		temp.setIdSensor(Integer.valueOf(request.getIdSensor()));
 		
 		medidasTemp.save(temp);
 		

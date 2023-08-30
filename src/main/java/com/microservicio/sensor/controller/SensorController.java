@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.microservicio.sensor.bean.AlmacenHumedadRequest;
-import com.microservicio.sensor.bean.AlmacenTemperaturaRequest;
+import com.microservicio.sensor.bean.MedidasRequest;
 import com.microservicio.sensor.services.MedidasService;
 
 
@@ -25,13 +24,13 @@ public class SensorController {
 	}
 	
 	@PostMapping ("/medidas-humedad")
-	public String almacenarMedidasHumedad(@RequestBody AlmacenHumedadRequest request ) {
+	public String almacenarMedidasHumedad(@RequestBody MedidasRequest request ) {
 
 		return service.almacenarHumedades(request);
 	}
 	
 	@PostMapping ("/medidas-temperatura")
-	public String almacenarMedidasTemperatura(@RequestBody AlmacenTemperaturaRequest request ) {
+	public String almacenarMedidasTemperatura(@RequestBody MedidasRequest request ) {
 
 		return service.almacenarTemperaturas(request);
 	}

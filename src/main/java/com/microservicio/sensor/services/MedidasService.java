@@ -1,11 +1,10 @@
 package com.microservicio.sensor.services;
 
-import com.microservicio.sensor.bean.AlmacenHumedadRequest;
-import com.microservicio.sensor.bean.AlmacenTemperaturaRequest;
+import com.microservicio.sensor.bean.MedidasRequest;
 
 public interface MedidasService {
 
-	public String almacenarHumedades(AlmacenHumedadRequest request);
+	public String almacenarHumedades(MedidasRequest request);
 
-	public String almacenarTemperaturas(AlmacenTemperaturaRequest request);
+	public String almacenarTemperaturas(MedidasRequest request);
 }
