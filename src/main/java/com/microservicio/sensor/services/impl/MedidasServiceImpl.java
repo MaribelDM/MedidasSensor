@@ -28,42 +28,49 @@ public class MedidasServiceImpl implements MedidasService {
 	private MedidasTemperaturaRepository medidasTemp;
 
 	@Override
-	public String almacenarHumedades(MedidasRequest request) {
-		logger.debug("Introducimos humedad valor:{}, fecha:{} ", request.getValor(), request.getFecha());
-		String ok  = "ok";
+	public String almacenarHumedades(List<MedidasRequest> request) {
 		int tamanio = (int) medidasHumedad.count();
+		String ok = "ok";
+		request.stream().forEach(medidaHumedad -> introducirhumedad(medidaHumedad));
+
+		return ((int) medidasHumedad.count() > tamanio) ? ok : "ko";
+	}
+
+	private void introducirhumedad(MedidasRequest medidaHumedad) {
+		logger.debug("Introducimos humedad valor:{}, fecha:{} ", medidaHumedad.getValor(), medidaHumedad.getFecha());
+
 		try {
-		Humedad humedad = new Humedad();
-		humedad.setFecha(MedidasUtils.formatearFecha(request.getFecha()));
-		humedad.setValor(request.getValor());
-		humedad.setIdSensor(Integer.valueOf(request.getIdSensor()));
-		
-		medidasHumedad.save(humedad);
-		
-		
-		}catch(Exception ex){
+			Humedad humedad = new Humedad();
+			humedad.setFecha(MedidasUtils.formatearFecha(medidaHumedad.getFecha()));
+			humedad.setValor(medidaHumedad.getValor());
+			humedad.setIdSensor(Integer.valueOf(medidaHumedad.getIdSensor()));
+
+			medidasHumedad.save(humedad);
+		} catch (Exception ex) {
 			logger.error("Error al introducir humedad en base de datos", ex);
 		}
-		return  ((int)medidasHumedad.count() > tamanio) ? ok : "ko";
 	}
 
 	@Override
-	public String almacenarTemperaturas(MedidasRequest request) {
-		logger.debug("Introducimos temperatura valor:{}, fecha:{} ", request.getValor(), request.getFecha());
+	public String almacenarTemperaturas(List<MedidasRequest> request) {
 		String ok  = "ok";
 		int tamanio = (int) medidasTemp.count();
+		request.stream().forEach(medidaTemperatura -> introducirTemperatura(medidaTemperatura));
+		return  ((int)medidasTemp.count() > tamanio) ? ok : "ko";
+	}
+
+	private void introducirTemperatura(MedidasRequest medidaTemperatura) {
+		logger.debug("Introducimos temperatura valor:{}, fecha:{} ", medidaTemperatura.getValor(), medidaTemperatura.getFecha());
 		try {
-		Temperatura temp = new Temperatura();
-		temp.setFecha(MedidasUtils.formatearFecha(request.getFecha()));
-		temp.setValor(request.getValor());
-		temp.setIdSensor(Integer.valueOf(request.getIdSensor()));
-		
-		medidasTemp.save(temp);
-		
-		
-		}catch(Exception ex){
+			Temperatura temp = new Temperatura();
+			temp.setFecha(MedidasUtils.formatearFecha(medidaTemperatura.getFecha()));
+			temp.setValor(medidaTemperatura.getValor());
+			temp.setIdSensor(Integer.valueOf(medidaTemperatura.getIdSensor()));
+
+			medidasTemp.save(temp);
+
+		} catch (Exception ex) {
 			logger.error("Error al introducir humedad en base de datos", ex);
 		}
-		return  ((int)medidasTemp.count() > tamanio) ? ok : "ko";
 	}
 }

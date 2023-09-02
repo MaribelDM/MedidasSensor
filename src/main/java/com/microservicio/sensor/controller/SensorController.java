@@ -1,5 +1,7 @@
 package com.microservicio.sensor.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,13 +26,13 @@ public class SensorController {
 	}
 	
 	@PostMapping ("/medidas-humedad")
-	public String almacenarMedidasHumedad(@RequestBody MedidasRequest request ) {
+	public String almacenarMedidasHumedad(@RequestBody List<MedidasRequest> request ) {
 
 		return service.almacenarHumedades(request);
 	}
 	
 	@PostMapping ("/medidas-temperatura")
-	public String almacenarMedidasTemperatura(@RequestBody MedidasRequest request ) {
+	public String almacenarMedidasTemperatura(@RequestBody List<MedidasRequest> request ) {
 
 		return service.almacenarTemperaturas(request);
 	}
