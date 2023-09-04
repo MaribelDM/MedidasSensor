@@ -31,7 +31,7 @@ public class SwaggerConfig{
 	private ApiInfo apiInfo() {
 		Contact contact = new Contact("", "", "");
         return new ApiInfoBuilder()
-                .title("Spring REST Swagger Aplicacion ")
+                .title("Spring REST Swagger Medidas Sensores ")
                 .description("Aplicacion medidas sensores")
                 .contact(contact)
                 .version("1.0")
